@@ -5,7 +5,7 @@
 typedef struct _nodeStack
 {
     struct _nodeStack *next;
-    int data;
+    Item item;
 } nodeStack;
 
 typedef struct _stack
@@ -21,18 +21,18 @@ Stack createStack()
     return s;
 }
 
-nodeStack *newNode(int data)
+nodeStack *newNodeStack(Item item)
 {
     nodeStack *node = (nodeStack *)malloc(sizeof(nodeStack));
-    node->data = data;
+    node->item = item;
     node->next = NULL;
     return node;
 }
 
-void push(Stack stk, int data)
+void push(Stack stk, Item item)
 {
     stack *s = stk;
-    nodeStack *node = newNode(data);
+    nodeStack *node = newNodeStack(item);
     if (emptyStack(s))
     {
         s->top = node;
@@ -45,17 +45,22 @@ void push(Stack stk, int data)
     s->size += 1;
 }
 
-int pop(Stack stk)
+Item pop(Stack stk)
 {
     stack *s = stk;
     nodeStack *node = s->top;
     if (emptyStack(s))
-        printf("\nNão é possível desempilhar de uma pilha vazia");
-    int data = node->data;
+    {
+        printf("\nNão é possível desempilhar de uma pilha vazia\n");
+        free(s);
+        exit(1);
+    }
+
+    Item item = node->item;
     s->top = node->next;
     s->size -= 1;
     free(node);
-    return data;
+    return item;
 }
 
 int sizeStack(Stack stk)
@@ -97,7 +102,7 @@ void printStack(Stack stk)
     if (n != NULL)
         while (n != NULL)
         {
-            printf("-> %d", n->data);
+            printf("-> %d", n->item);
             n = n->next;
         }
 }

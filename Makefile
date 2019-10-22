@@ -1,5 +1,5 @@
 CC := gcc
-CFLAGS := -lm -g 
+CFLAGS := -lm -g -std=c99
 FONTES := $(wildcard *.c)
 OBJS := $(FONTES:.c=.o)
 EXEC := regalloc

@@ -2,13 +2,15 @@
 #define stack_h
 
 typedef void *Stack;
-typedef int Item;
+typedef void *Item;
+typedef void (*fr)(Item);
 
-Stack createStack();
+Stack newStack(fr printItem, fr freeItem);
 void push(Stack s, Item n);
-int pop(Stack s);
+Item pop(Stack s);
 int sizeStack(Stack s);
 void freeStack(Stack s);
+void eraseStack(Stack s);
 int emptyStack(Stack s);
 void printStack(Stack s);
 

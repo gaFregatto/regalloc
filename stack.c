@@ -11,13 +11,17 @@ typedef struct _nodeStack
 typedef struct _stack
 {
     struct _nodeStack *top;
+    fr printItem, freeItem;
     int size;
 } stack;
 
-Stack createStack()
+Stack newStack(fr printItem, fr freeItem)
 {
     stack *s = (stack *)malloc(sizeof(stack));
     s->top = NULL;
+    s->size = 0;
+    s->printItem = printItem;
+    s->freeItem = freeItem;
     return s;
 }
 
@@ -53,7 +57,7 @@ Item pop(Stack stk)
     {
         printf("\nNão é possível desempilhar de uma pilha vazia\n");
         free(s);
-        exit(1);
+        return NULL;
     }
 
     Item item = node->item;
@@ -82,6 +86,20 @@ void freeStack(Stack stk)
     free(s);
 }
 
+void eraseStack(Stack stk)
+{
+    stack *s = stk;
+    nodeStack *aux, *node = s->top;
+    while (node != NULL)
+    {
+        aux = node;
+        node = node->next;
+        s->freeItem(aux->item);
+        free(aux);
+    }
+    free(s);
+}
+
 int emptyStack(Stack stk)
 {
     stack *s = stk;
@@ -100,9 +118,12 @@ void printStack(Stack stk)
     stack *s = stk;
     nodeStack *n = s->top;
     if (n != NULL)
+    {
+        printf("\nPilha (topo à esquerda): ");
         while (n != NULL)
         {
-            printf("-> %d", n->item);
+            s->printItem(n->item);
             n = n->next;
         }
+    }
 }

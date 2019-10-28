@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "list.h"
+#include "integer.h"
 
 typedef struct _nodeList
 {
@@ -260,7 +261,6 @@ void printList(List lt)
 {
     list *l = lt;
     nodeList *n = l->head;
-    printf("\nLISTA: ");
     while (n != NULL)
     {
         l->printItem(n->item);
@@ -301,7 +301,8 @@ void eraseList(List lt)
     {
         nAux = n;
         n = n->next;
-        l->freeItem(nAux->item);
+        if (nAux->item != NULL)
+            l->freeItem(nAux->item);
         free(nAux);
     }
     free(l);

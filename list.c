@@ -80,10 +80,7 @@ Posic getPrevious(List lt, Posic p)
 Posic getFirst(List lt)
 {
     list *l = lt;
-    if (isEmpty(l))
-        return NULL;
-    else
-        return l->head;
+    return l->head;
 }
 
 Posic getLast(List lt)
@@ -312,4 +309,26 @@ int sizeList(List lt)
 {
     list *l = lt;
     return l->size;
+}
+
+void printListAux(List lt)
+{
+    list *l = lt;
+    nodeList *n = l->head;
+    while (n != NULL)
+    {
+        if (getInteger(n->item) == -1)
+        {
+            printf("\n");
+            n = getNext(l, n);
+        }
+        else if (getInteger(n->item) == -2)
+        {
+            printf("--> ");
+            n = getNext(l, n);
+        }
+        l->printItem(n->item);
+        n = getNext(l, n);
+    }
+    printf("\n");
 }

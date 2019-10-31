@@ -55,8 +55,8 @@ Item pop(Stack stk)
     nodeStack *node = s->top;
     if (emptyStack(s))
     {
-        printf("\nNão é possível desempilhar de uma pilha vazia\n");
-        free(s);
+        //printf("\nNão é possível desempilhar de uma pilha vazia\n");
+        //free(s);
         return NULL;
     }
 

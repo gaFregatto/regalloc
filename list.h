@@ -6,6 +6,7 @@ typedef void *Posic;
 typedef void *Item;
 typedef void (*fr)(Item);
 typedef int (*fe)(Item, Item);
+typedef int (*sortKey)(Item);
 
 List newList(fr printItem, fr freeItem, fe equalItens);
 Item getItem(List lt, Posic p);
@@ -22,5 +23,6 @@ void printReverseList(List lt);
 void freeList(List lt);
 void eraseList(List lt);
 int sizeList(List lt);
+void printListAux(List lt);
 
 #endif
